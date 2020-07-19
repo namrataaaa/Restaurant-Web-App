@@ -12,13 +12,13 @@ class DishDetails extends Component {
     }
 
     renderComments(comments) {
-        
+
         if (comments != null) {
             const listItem = comments.map(comment => {
                 return (
                     <li key={comment.id}>{comment.comment}<br />
-                    <em>{'-- ' + comment.author}</em>
-                    {',  ' + comment.date.toString().substring(0, 10)}<br /><br /></li>
+                        <em>{'-- ' + comment.author}</em>
+                        {',  ' + comment.date.toString().substring(0, 10)}<br /><br /></li>
                 );
             });
         } else {
@@ -34,29 +34,31 @@ class DishDetails extends Component {
             listItem = comments.map(comment => {
                 return (
                     <li key={comment.id}>{comment.comment}<br />
-                    <em>{'-- ' + comment.author}</em>
-                    {',  ' + comment.date.toString().substring(0, 10)}<br /><br /></li>
+                        <em>{'-- ' + comment.author}</em>
+                        {',  '} {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' })
+                            .format(new Date(Date.parse(comment.date)))}<br /><br /></li>
                 );
             });
         } else {
             return listItem;
         }
         return (
-            <div className="container row">
-                <Card className="col-12 col-md-5 m-1">
-                    <CardImg width="100%" src={dish.image} alt={dish.name} />
-                    <CardBody>
-                        <CardTitle>{dish.name}</CardTitle>
-                        <CardText>{dish.description}</CardText>
-                    </CardBody>
-                </Card>
-                <div className="col-12 col-md-6 m-1">
-                    <h4>Comments</h4>
-                    <ul className="list-unstyled p-1">
-                        {listItem}
-                    </ul>
+            <div className="container">
+                <div className="row">
+                    <Card className="col-12 col-md-5 m-3">
+                        <CardImg width="100%" src={dish.image} alt={dish.name} />
+                        <CardBody>
+                            <CardTitle>{dish.name}</CardTitle>
+                            <CardText>{dish.description}</CardText>
+                        </CardBody>
+                    </Card>
+                    <div className="col-12 col-md-6 m-2">
+                        <h4>Comments</h4>
+                        <ul className="list-unstyled p-1">
+                            {listItem}
+                        </ul>
+                    </div>
                 </div>
-
             </div>
         );
 
