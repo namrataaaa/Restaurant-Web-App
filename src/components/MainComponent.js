@@ -4,7 +4,7 @@ import Menu from './MenuComponent';
 import DishDetails from './DishDetailsComponent';
 import DISHES from '../shared/dishes';
 
-class Main extends Component{
+export default class Main extends Component{
   
   constructor(props) {
     super(props);
@@ -32,5 +32,3 @@ class Main extends Component{
   }
     
 }
-
-export default Main;

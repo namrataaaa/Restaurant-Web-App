@@ -1,25 +1,23 @@
-import React, { Component } from 'react';
-import DishDetails from './DishDetailsComponent';
-import { Card, CardImg, CardImgOverlay, CardTitle, CardBody, CardText } from 'reactstrap';
+import React from 'react';
+import { Card, CardImg, CardImgOverlay, CardTitle} from 'reactstrap';
 
-class Menu extends Component {
-
-    constructor(props) {
-        super(props);
+    function RenderMenuItem({dish, onClick}) {
+        return (
+            <Card onClick={() => onClick(dish.id)}>
+                <CardImg height="250px" src={dish.image} alt={dish.name} />
+                <CardImgOverlay>
+                    <CardTitle heading style={{fontSize: 25 + 'px'}}><strong>{dish.name}</strong></CardTitle>
+                </CardImgOverlay>
+            </Card>
+        );
     }
 
-    render() { // corresponding view for the component
-        const fontsize = 25;
-        const menu = this.props.dishes.map((dish) => {
+    const Menu = (props) => {
+        const menu = props.dishes.map((dish) => {
             return (
                 // every element in a list of items requires a key
                 <div key={dish.id} className="col-12 col-md-3 mt-1 mb-1">
-                    <Card onClick={() => this.props.onClick(dish.id)}>
-                        <CardImg height="250px" src={dish.image} alt={dish.name} />
-                        <CardImgOverlay>
-                            <CardTitle heading style={{fontSize: fontsize + 'px'}}><strong>{dish.name}</strong></CardTitle>
-                        </CardImgOverlay>
-                    </Card>
+                    <RenderMenuItem dish={dish} onClick={props.onClick} />
                 </div>
             );
         });
@@ -32,6 +30,6 @@ class Menu extends Component {
             </div>
         );
     }
-}
+        
 
 export default Menu;
