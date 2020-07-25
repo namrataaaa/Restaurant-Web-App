@@ -1,13 +1,17 @@
 import React from 'react';
-import { Card, CardImg, CardImgOverlay, CardTitle} from 'reactstrap';
+import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem} from 'reactstrap';
+import { Link } from 'react-router-dom';
 
-    function RenderMenuItem({dish, onClick}) {
+    function RenderMenuItem({dish}) {
         return (
-            <Card onClick={() => onClick(dish.id)}>
-                <CardImg height="250px" src={dish.image} alt={dish.name} />
-                <CardImgOverlay>
-                    <CardTitle heading style={{fontSize: 25 + 'px'}}><strong>{dish.name}</strong></CardTitle>
-                </CardImgOverlay>
+            <Card>
+                <Link to={`/menu/${dish.id}`} >
+                    <CardImg height="250px" src={dish.image} alt={dish.name} />
+                    <CardImgOverlay>
+                        <CardTitle heading style={{fontSize: 25 + 'px'}}><strong>{dish.name}</strong></CardTitle>
+                    </CardImgOverlay>
+                </Link>
+                
             </Card>
         );
     }
@@ -17,7 +21,7 @@ import { Card, CardImg, CardImgOverlay, CardTitle} from 'reactstrap';
             return (
                 // every element in a list of items requires a key
                 <div key={dish.id} className="col-12 col-md-3 mt-1 mb-1">
-                    <RenderMenuItem dish={dish} onClick={props.onClick} />
+                    <RenderMenuItem dish={dish} />
                 </div>
             );
         });
@@ -25,6 +29,16 @@ import { Card, CardImg, CardImgOverlay, CardTitle} from 'reactstrap';
         return (
             <div className="container">
                 <div className="row">
+                    <Breadcrumb>
+                        <BreadcrumbItem><Link to="/home">Home</Link></BreadcrumbItem>
+                        <BreadcrumbItem active>Menu</BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h3>Menu</h3>
+                        <hr />
+                    </div>
+                </div>
+                <div className="row row-content">
                     {menu}
                 </div>
             </div>
