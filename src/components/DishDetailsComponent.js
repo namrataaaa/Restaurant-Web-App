@@ -1,9 +1,12 @@
-import React, {Component} from 'react';
-import { Card, CardImg, CardTitle, CardBody, CardText, Breadcrumb, BreadcrumbItem, 
-    Button, Label, Row, Modal, ModalBody, ModalHeader } from 'reactstrap';
+import React, { Component } from 'react';
+import {
+    Card, CardImg, CardTitle, CardBody, CardText, Breadcrumb, BreadcrumbItem,
+    Button, Label, Row, Modal, ModalBody, ModalHeader
+} from 'reactstrap';
 // import CommentForm from './CommentFormComponent';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
 
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => (val) && (val.length >= len);
@@ -55,10 +58,10 @@ class CommentForm extends Component {
                                 <Row className="form-group" >
                                     <Label htmlFor="author">Your Name</Label>
                                     <Control.text model=".author" id="author" name="author" placeholder="Enter Your Name"
-                                    className="form-control" 
-                                    validators={{
-                                        minLength: minLength(3), maxLength: maxLength(15)
-                                    }}/>
+                                        className="form-control"
+                                        validators={{
+                                            minLength: minLength(3), maxLength: maxLength(15)
+                                        }} />
                                     <Errors
                                         className="text-danger"
                                         model=".author"
@@ -66,7 +69,7 @@ class CommentForm extends Component {
                                         messages={{
                                             minLength: 'Must be greater than 2 characters',
                                             maxLength: 'Must be less than 15 characters'
-                                        }}    
+                                        }}
                                     />
                                 </Row >
                                 <Row className="form-group" >
@@ -104,7 +107,7 @@ function RenderComments({ comments, addComment, dishId }) {
                         );
                     })}
                 </ul>
-                <CommentForm dishId={dishId} addComment={addComment}/>
+                <CommentForm dishId={dishId} addComment={addComment} />
             </div>
         );
     }
@@ -130,33 +133,53 @@ function RenderDish({ dish }) {
 }
 
 const DishDetails = (props) => {
-
-    if (props.dish != null) {
+    if (props.isLoading) {
         return (
             <div className="container">
                 <div className="row">
-                    <Breadcrumb>
-                        <BreadcrumbItem><Link to="/menu" >Menu</Link></BreadcrumbItem>
-                        <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
-                    </Breadcrumb>
-                    <div className="col-12">
-                        <h3>{props.dish.name}</h3>
-                        <hr />
-                    </div>
+                    <Loading />
                 </div>
-                <div className="row">
-                    <RenderDish dish={props.dish} />
-                    <RenderComments comments={props.comments} 
-                        addComment={props.addComment}
-                        dishId={props.dish.id} />
-                </div>
-
-            </div>);
-    } else {
-        return (
-            <div></div>
+            </div>
         );
     }
+    else if (props.errMsg) {
+        return (
+            <div className="container">
+                <div className="row">
+                    <h4>{props.errMsg}</h4>
+                </div>
+            </div>
+        );
+    }
+    else {
+        if (props.dish != null) {
+            return (
+                <div className="container">
+                    <div className="row">
+                        <Breadcrumb>
+                            <BreadcrumbItem><Link to="/menu" >Menu</Link></BreadcrumbItem>
+                            <BreadcrumbItem active>{props.dish.name}</BreadcrumbItem>
+                        </Breadcrumb>
+                        <div className="col-12">
+                            <h3>{props.dish.name}</h3>
+                            <hr />
+                        </div>
+                    </div>
+                    <div className="row">
+                        <RenderDish dish={props.dish} />
+                        <RenderComments comments={props.comments}
+                            addComment={props.addComment}
+                            dishId={props.dish.id} />
+                    </div>
+
+                </div>);
+        } else {
+            return (
+                <div></div>
+            );
+        }
+    }
+
 }
 
 
