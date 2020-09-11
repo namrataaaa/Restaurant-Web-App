@@ -1,4 +1,5 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You can use npm to run your app in your computer.
 
 ## Available Scripts
 
