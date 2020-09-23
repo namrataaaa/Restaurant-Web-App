@@ -1,5 +1,5 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-You can use npm to run your app in your computer.
+To run this web app in your computer, just install node js and/or yarn. Clone this project to your local computer, and in the command prompt/terminal, run the command "npm start" or "yarn start" if you have installed yarn.
 
 ## Available Scripts
 
